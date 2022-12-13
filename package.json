@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "heroku-postbuild": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -13,8 +19,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  },
   "bugs": {
     "url": "https://github.com/JulesJ93/Redux-Store/issues"
   },
   "homepage": "https://github.com/JulesJ93/Redux-Store#readme"
+ ,
+ "devDependencies": {
+  "concurrently": "^5.3.0"
+ }
 }
